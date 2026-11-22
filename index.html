@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bankroll: Memecoin Prop Firm — Pitch Deck</title>
+<meta name="description" content="Fates: parlays on Elysium. Stack the legs. Spin your fate. Holders own the house." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+html, body { margin:0; padding:0; height:100%; overflow:hidden; background:#101511; }
+#viewport { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+#stage { position:relative; width:1920px; height:1080px; transform-origin:center center; flex:none; }
+#stage > section { position:absolute; inset:0; width:1920px; height:1080px; margin:0; opacity:0; visibility:hidden; transition:opacity .45s ease, visibility .45s; overflow:hidden; }
+#stage > section.active { opacity:1; visibility:visible; }
+#stage > section:not(.active) .rise { animation:none; }
+/* arrow shapes drawn with CSS */
+.shape-arrow-right { clip-path: polygon(0 30%, 60% 30%, 60% 0, 100% 50%, 60% 100%, 60% 70%, 0 70%); }
+.shape-arrow-left { clip-path: polygon(100% 30%, 40% 30%, 40% 0, 0 50%, 40% 100%, 40% 70%, 100% 70%); }
+.shape-arrow-down { clip-path: polygon(30% 0, 70% 0, 70% 60%, 100% 60%, 50% 100%, 0 60%, 30% 60%); }
+.shape-arrow-up { clip-path: polygon(30% 100%, 70% 100%, 70% 40%, 100% 40%, 50% 0, 0 40%, 30% 40%); }
+table.data { border-collapse:collapse; }
+table.data th, table.data td { padding:14px 18px; border-bottom:1px solid #2F3A30; vertical-align:top; }
+/* nav */
+.nav { position:fixed; right:24px; bottom:18px; display:flex; align-items:center; gap:12px; z-index:10; font-family:'JetBrains Mono', monospace; font-size:13px; color:#95A092; }
+.nav button { width:38px; height:38px; border-radius:50%; border:1px solid #2F3A30; background:rgba(22,28,23,.8); color:#EEF1EA; cursor:pointer; font-size:16px; }
+.nav button:hover { border-color:#86C065; }
+.progress { position:fixed; left:0; right:0; bottom:0; height:4px; background:#1C231D; z-index:10; }
+.progress .f { height:100%; background:#86C065; width:0; transition:width .4s ease; }
+body { font-family: 'Inter', Arial, sans-serif; }
+
+section { padding: 128px; background: #161C17; color: #C3CBBF; box-sizing: border-box; display: flex; flex-direction: column; gap: 44px; font-family: 'Inter', Arial, sans-serif; }
+section.alt { background: #1C231D; }
+section.has-foot { padding: 128px 128px 160px; }
+section.accent { background: #86C065; color: #142014; }
+
+h1, h2, h3 { font-family: 'Space Grotesk', Arial, sans-serif; color: #EEF1EA; margin: 0; }
+h1 { font-size: 120px; font-weight: 700; line-height: 1.02; letter-spacing: -2px; }
+h2 { font-size: 64px; font-weight: 700; line-height: 1.08; letter-spacing: -1px; }
+h3 { font-size: 40px; font-weight: 600; line-height: 1.15; }
+section.accent h1, section.accent h2, section.accent h3 { color: #101810; }
+
+.eyebrow { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #86C065; letter-spacing: 2px; font-weight: 700; margin: 0; }
+section.accent .eyebrow { color: #101810; }
+.lede { font-size: 32px; line-height: 1.45; color: #C3CBBF; margin: 0; max-width: 1300px; }
+section.accent .lede { color: #1B2A1A; }
+.hl { color: #86C065; }
+.blue { color: #8DB2F7; }
+.gold { color: #E8C468; }
+.bad { color: #E8896A; }
+.head { display: flex; flex-direction: column; gap: 18px; }
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #95A092; margin: 0; }
+
+.source { position: absolute; left: 128px; bottom: 64px; width: 1664px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #95A092; margin: 0; }
+
+.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+.stats.four { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; }
+.stat { border-top: 4px solid #86C065; padding-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.stat.warn { border-top-color: #E8896A; }
+.stat .num { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 96px; font-weight: 700; line-height: 1; color: #EEF1EA; margin: 0; }
+.stat .label { font-size: 28px; line-height: 1.35; color: #C3CBBF; margin: 0; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; }
+.cards.three { grid-template-columns: 1fr 1fr 1fr; }
+.cards.two { grid-template-columns: 1fr 1fr; gap: 32px; }
+.card { background: #1C231D; border: 2px solid #2F3A30; border-radius: 16px; padding: 36px; display: flex; flex-direction: column; gap: 14px; }
+section.alt .card { background: #161C17; }
+.card .k { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #86C065; font-weight: 700; margin: 0; }
+.card .d { font-size: 28px; line-height: 1.4; color: #C3CBBF; margin: 0; }
+.card .big { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 64px; font-weight: 700; color: #EEF1EA; line-height: 1; margin: 0; }
+.card.featured { border-color: #8DB2F7; }
+.card.compact { padding: 28px; gap: 10px; }
+.card.compact .d { font-size: 24px; line-height: 1.4; }
+
+.flow { display: flex; align-items: center; gap: 20px; }
+.flow .card { flex: 1; }
+.arrow { width: 64px; height: 32px; background: #8DB2F7; }
+
+.wheel { display: grid; grid-template-columns: 1fr 140px 1fr; grid-template-rows: auto 110px auto; align-items: center; justify-items: center; flex: 1; }
+.wheel .node { background: #161C17; border: 2px solid #86C065; border-radius: 20px; padding: 28px 36px; width: 640px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; }
+.wheel .node .k { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #86C065; font-weight: 700; margin: 0; }
+.wheel .node .t { font-family: 'Space Grotesk', Arial, sans-serif; font-size: 34px; font-weight: 600; color: #EEF1EA; margin: 0; line-height: 1.2; }
+.arr-h { width: 96px; height: 44px; background: #8DB2F7; }
+.arr-v { width: 44px; height: 96px; background: #8DB2F7; }
+.wheel .mid { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; color: #95A092; margin: 0; text-align: center; }
+
+.ticket { background: #1C231D; border: 2px dashed #86C065; border-radius: 20px; padding: 40px; display: flex; flex-direction: column; gap: 18px; }
+.leg { display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #2F3A30; padding-top: 18px; gap: 24px; }
+.leg .n { font-size: 30px; color: #EEF1EA; margin: 0; }
+.leg .v { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 28px; color: #86C065; font-weight: 700; margin: 0; }
+
+table.data { width: 100%; font-size: 28px; color: #C3CBBF; font-family: 'Inter', Arial, sans-serif; }
+table.data tr.headrow { background: #263027; }
+table.data th { color: #EEF1EA; font-weight: 600; text-align: left; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.rise { animation: rise 600ms ease-out both; animation-delay: calc(var(--i, 0) * 120ms); }
+
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<section data-slide id="cover" data-transition="fade" style="justify-content:space-between">
+<p class="eyebrow rise" style="--i:0">MEMECOIN PROP FIRM ON SOLANA · $BANKROLL</p>
+<div class="head">
+<h1 class="rise" style="--i:1">Bankroll</h1>
+<h3 class="rise" style="--i:2; color:#C3CBBF; font-weight:400">Prove it in the trenches. Trade our money. Holders own the firm.</h3>
+</div>
+<p class="mono rise" style="--i:3">Buy a challenge · Hit the target · Get funded · Keep 80% · Payouts onchain</p>
+
+</section>
+<section data-slide id="opportunity" class="alt has-foot">
+<div class="head">
+<p class="eyebrow">THE OPPORTUNITY</p>
+<h2>Prop firms are a multi-billion business built on challenge fees.</h2>
+</div>
+<div class="stats">
+<div class="stat rise" style="--i:0"><p class="num">$4–4.5B</p><p class="label">estimated retail prop firm revenue in 2026</p></div>
+<div class="stat rise" style="--i:1"><p class="num">68%</p><p class="label">of prop firm revenue came from challenge fees in 2025</p></div>
+<div class="stat rise" style="--i:2"><p class="num">$907M</p><p class="label">in payouts that can be checked onchain over the past year</p></div>
+</div>
+<p class="lede">The biggest firm, FTMO, reportedly made $329M in 2024. Almost none of this industry serves memecoin traders.</p>
+<p class="source">Sources: Octrado, Arizet Labs and Payout Junction via Fortunly (Sep 2026); DeFiPrime (Jun 2026) for FTMO</p>
+
+</section>
+<section data-slide id="economics" class="has-foot">
+<div class="head">
+<p class="eyebrow">HOW PROP FIRMS MAKE MONEY</p>
+<h2>Most traders fail the test, and their fees pay the winners.</h2>
+</div>
+<div class="split">
+<div class="head rise" style="--i:0">
+<table class="data">
+<tr class="headrow"><th style="width:60%">Of every 100 traders</th><th style="width:40%">Count</th></tr>
+<tr><td>Buy a challenge</td><td>100</td></tr>
+<tr><td>Pass and get funded</td><td>~14</td></tr>
+<tr><td>Ever receive a payout</td><td>~7</td></tr>
+</table>
+<p class="mono">Average payout: about 4% of the account size.</p>
+</div>
+<div class="head rise" style="--i:1">
+<p class="lede">It is the house edge again, but people pay for the chance to prove themselves, not to gamble. Fees come in up front. Payouts go to a few, later.</p>
+<p class="lede">That gives a high revenue floor: every challenge sold is revenue, win or lose.</p>
+</div>
+</div>
+<p class="source">Source: FPFX Tech data on 300,000+ accounts across 10 firms, via Finance Magnates. Most firms report 10–20% pass rates.</p>
+
+</section>
+<section data-slide id="proof" class="alt has-foot">
+<div class="head">
+<p class="eyebrow">PROVEN ONCHAIN</p>
+<h2>Crypto traders already pay for this, and Solana traders follow other traders.</h2>
+</div>
+<div class="stats">
+<div class="stat rise" style="--i:0"><p class="num">$4.5M</p><p class="label">annualised revenue at Propr, an onchain prop firm on Hyperliquid, about six weeks after launch</p></div>
+<div class="stat rise" style="--i:1"><p class="num">1,000</p><p class="label">paying Propr customers by day 100 of building in public</p></div>
+<div class="stat rise" style="--i:2"><p class="num">1.5M</p><p class="label">monthly users on Fomo, the Solana app where people copy other traders</p></div>
+</div>
+<p class="source">Sources: Propr build-in-public updates (May 2026); The Block, Fomo at Breakpoint (17 Nov 2026)</p>
+
+</section>
+<section data-slide id="competition">
+<div class="head">
+<p class="eyebrow">COMPETITION</p>
+<h2>Memecoin prop firms exist, but nobody trusts them yet.</h2>
+</div>
+<table class="data" style="font-size:25px">
+<tr class="headrow"><th style="width:26%">Firm</th><th style="width:37%">What it does</th><th style="width:37%">Weak spot</th></tr>
+<tr><td>Solana Funded</td><td>Solana memecoin challenges up to $100K, 90% split (founded Jan 2026)</td><td>Trustpilot 2.9/5; simulated accounts; closed books</td></tr>
+<tr><td>blockfirm</td><td>Solana memecoin “Blocks”, $99–249, 90% split</td><td>No payouts made yet; its token lives on Robinhood Chain</td></tr>
+<tr><td>Funded Prime</td><td>Memecoin challenge from $55 (Aug 2025)</td><td>Big memes only (SHIB, PEPE, TRUMP), not new Solana coins</td></tr>
+<tr><td>Propr, Hypernova</td><td>Onchain prop firms for perps</td><td>Hyperliquid and Arbitrum; no memecoins</td></tr>
+<tr><td>Fomo</td><td>Copy other traders on Solana</td><td>Not a prop firm: you trade your own money</td></tr>
+<tr><td style="color:#86C065">Bankroll</td><td style="color:#86C065">Pump-native challenges, payout vault onchain</td><td style="color:#86C065">Owned by its holders; best traders go live and can be copied</td></tr>
+</table>
+<p class="mono">Checked Nov 2026. Trustpilot figure via FundedTrading.com.</p>
+
+</section>
+<section data-slide id="improve" class="alt">
+<div class="head">
+<p class="eyebrow">HOW BANKROLL IMPROVES ON THEM</p>
+<h2>Same business. Built so traders can trust it.</h2>
+</div>
+<table class="data" style="font-size:26px">
+<tr class="headrow"><th style="width:22%"></th><th style="width:39%">Today’s memecoin prop firms</th><th style="width:39%">Bankroll</th></tr>
+<tr><td>Payout money</td><td style="color:#E8896A">Held privately, so nobody knows if it exists</td><td style="color:#86C065">A public USDC payout vault anyone can check</td></tr>
+<tr><td>Rules</td><td>Written on a website, can change</td><td style="color:#86C065">Set in the contract; payouts are automatic</td></tr>
+<tr><td>Coins</td><td>Big memes, or a fixed list</td><td style="color:#86C065">Any graduated Pump coin above a liquidity floor</td></tr>
+<tr><td>Fills</td><td>Often at chart price</td><td style="color:#86C065">Modelled on real pool depth and slippage</td></tr>
+<tr><td>Best traders</td><td>Stay on a simulated account</td><td style="color:#86C065">Graduate to the Live Desk: real money, copyable</td></tr>
+<tr><td>Holders</td><td>No token, or a token with no job</td><td style="color:#86C065">Back the vault and earn from every challenge</td></tr>
+</table>
+
+</section>
+<section data-slide id="product" class="alt">
+<div class="head">
+<p class="eyebrow">THE PRODUCT</p>
+<h2>Pay a small fee, prove you can trade, then trade our money.</h2>
+</div>
+<div class="flow">
+<div class="card rise" style="--i:0"><p class="k">1 · BUY</p><h3>A challenge</h3><p class="d">$2.5K–$25K practice account, paid in USDC or SOL.</p></div>
+<div class="arrow shape-arrow-right" aria-hidden="true"></div>
+<div class="card rise" style="--i:1"><p class="k">2 · PROVE</p><h3>Hit +25%</h3><p class="d">Without losing 10% in a day or 20% overall.</p></div>
+<div class="arrow shape-arrow-right" aria-hidden="true"></div>
+<div class="card rise" style="--i:2"><p class="k">3 · FUNDED</p><h3>Keep 80%</h3><p class="d">Paid in USDC from the public vault every 14 days.</p></div>
+<div class="arrow shape-arrow-right" aria-hidden="true"></div>
+<div class="card featured rise" style="--i:3"><p class="k">4 · LIVE DESK</p><h3>Real money</h3><p class="d">Top traders trade onchain capital, and others can copy them.</p></div>
+</div>
+<p class="lede">Trade any graduated Pump coin. Fills use the real pool’s depth, so a fake profit on a thin coin can’t be cashed.</p>
+
+</section>
+<section data-slide id="challenge">
+<div class="split" style="flex:1">
+<div class="head">
+<p class="eyebrow">AN EXAMPLE CHALLENGE</p>
+<h2>$99 in. A $10K account if you pass.</h2>
+<p class="lede">A trencher with a $300 wallet gets to trade like someone with $10K, and can never lose more than the fee.</p>
+<p class="mono">Illustrative prices and rules</p>
+</div>
+<div class="ticket rise" style="--i:0">
+<div style="display:flex; justify-content:space-between; align-items:center"><p class="mono" style="color:#EEF1EA">BANKROLL · $10K CHALLENGE</p><p class="mono gold">1 STEP</p></div>
+<div class="leg"><p class="n">Fee</p><p class="v">$99</p></div>
+<div class="leg"><p class="n">Profit target</p><p class="v">+$2,500</p></div>
+<div class="leg"><p class="n">Daily loss limit</p><p class="v">$1,000</p></div>
+<div class="leg"><p class="n">Max loss</p><p class="v">$2,000</p></div>
+<div class="leg"><p class="n">Your share once funded</p><p class="v gold">80%</p></div>
+</div>
+</div>
+
+</section>
+<section data-slide id="speculation" class="alt">
+<div class="head">
+<p class="eyebrow">HOW IT CREATES SPECULATION</p>
+<h2>Every challenge is a story people want to watch.</h2>
+</div>
+<div class="cards three">
+<div class="card compact rise" style="--i:0"><p class="k">PUBLIC PAYOUTS</p><h3>Proof on the chain</h3><p class="d">Every payout is an onchain receipt. “Got paid $4,200 trading memes” is a post people share.</p></div>
+<div class="card compact rise" style="--i:1"><p class="k">LIVE LEADERBOARD</p><h3>Who’s about to pass</h3><p class="d">Watch traders closing in on their target in real time. Streamers run challenges live.</p></div>
+<div class="card compact rise" style="--i:2"><p class="k">THE LIVE DESK</p><h3>New names to follow</h3><p class="d">Proven traders get real money and a public record. Their followers copy every trade.</p></div>
+<div class="card compact rise" style="--i:3"><p class="k">SEASONS</p><h3>Trading competitions</h3><p class="d">Monthly seasons with prize pools from challenge fees bring traders back.</p></div>
+<div class="card compact rise" style="--i:4"><p class="k">COINS GET FLOW</p><h3>Traders move markets</h3><p class="d">When Live Desk traders buy a coin, followers notice. Communities want them in their coin.</p></div>
+<div class="card compact rise" style="--i:5"><p class="k">THE TOKEN ITSELF</p><h3>Bet on the firm</h3><p class="d">Holders speculate on how many challenges sell, with real yield to anchor it.</p></div>
+</div>
+
+</section>
+<section data-slide id="vault">
+<div class="head">
+<p class="eyebrow">THE PAYOUT VAULT</p>
+<h2>A public USDC vault pays every funded trader.</h2>
+<p class="lede">Challenge fees flow in. Trader payouts flow out. Anyone can check the balance before buying a challenge.</p>
+</div>
+<div class="cards three">
+<div class="card rise" style="--i:0"><p class="k">WHO FUNDS IT</p><h3>Stakers</h3><p class="d">Stake $BANKROLL and deposit USDC to back payouts, and earn a share of fee profit.</p></div>
+<div class="card rise" style="--i:1"><p class="k">PROTECTION</p><h3>Hard limits</h3><p class="d">Max payout per trader per cycle. Account sizes on sale scale with the vault.</p></div>
+<div class="card rise" style="--i:2"><p class="k">RESERVE</p><h3>A rainy-day fund</h3><p class="d">Part of every fee is kept back for months when lots of traders pass.</p></div>
+</div>
+
+</section>
+<section data-slide id="revenue" class="alt">
+<div class="head">
+<p class="eyebrow">REVENUE MODEL</p>
+<h2>Every challenge sold is revenue, whether the trader wins or not.</h2>
+</div>
+<div class="split">
+<div class="head rise" style="--i:0">
+<table class="data">
+<tr class="headrow"><th style="width:60%">Income</th><th style="width:40%">When</th></tr>
+<tr><td>Challenge fees</td><td>Up front</td></tr>
+<tr><td>Resets after a fail</td><td>Up front</td></tr>
+<tr><td>Add-ons (faster payouts, bigger split)</td><td>Up front</td></tr>
+<tr><td>20% of funded traders’ profit</td><td>Each payout</td></tr>
+<tr><td>Copy fees on the Live Desk</td><td>Each trade</td></tr>
+</table>
+<p class="mono">Planning figure: payouts and running costs take 30% of fees, leaving 70%.</p>
+</div>
+<div class="head rise" style="--i:1">
+<p class="eyebrow">WHERE EACH $1 OF FEE PROFIT GOES</p>
+<div class="card" style="gap:18px">
+<div style="display:flex; justify-content:space-between; align-items:center"><h3>Stakers (paid in USDC)</h3><p class="big">50%</p></div>
+<div style="display:flex; justify-content:space-between; align-items:center"><h3>Buyback &amp; burn</h3><p class="big hl">30%</p></div>
+<div style="display:flex; justify-content:space-between; align-items:center"><h3>Treasury &amp; reserve</h3><p class="big">20%</p></div>
+</div>
+<p class="mono">Example split; final numbers to set.</p>
+</div>
+</div>
+
+</section>
+<section data-slide id="scenarios" class="has-foot">
+<div class="head">
+<p class="eyebrow">THREE REVENUE SCENARIOS</p>
+<h2>From a humble start to 1% of the prop market.</h2>
+</div>
+<div class="cards three">
+<div class="card rise" style="--i:0"><p class="k">1 · HUMBLE</p><p class="big">50</p><p class="d">challenges a day</p><hr style="border-top:2px solid #2F3A30; width:100%"><p class="d">Fee profit: <b>$5.25K/day</b><br>≈ $158K a month</p><p class="d">Stakers $2.6K · Buyback $1.6K · Treasury $1K a day</p></div>
+<div class="card rise" style="--i:1"><p class="k">2 · REACHABLE</p><p class="big">300</p><p class="d">challenges a day</p><hr style="border-top:2px solid #2F3A30; width:100%"><p class="d">Fee profit: <b>$31.5K/day</b><br>≈ $945K a month</p><p class="d">Stakers $15.8K · Buyback $9.5K · Treasury $6.3K a day</p></div>
+<div class="card featured rise" style="--i:2"><p class="k">3 · 1% OF THE MARKET</p><p class="big">750–800</p><p class="d">challenges a day</p><hr style="border-top:2px solid #2F3A30; width:100%"><p class="d">Fee profit: <b>$77–86K/day</b><br>≈ $2.3–2.6M a month</p><p class="d">Stakers $38–43K · Buyback $23–26K a day</p></div>
+</div>
+<p class="source">All at a $150 average fee, 70% kept after payouts and costs, 50/30/20 split. Scenario 3 is 1% of the $4–4.5B retail prop market. Scenarios, not forecasts.</p>
+
+</section>
+<section data-slide id="flywheel" class="alt">
+<div class="head">
+<p class="eyebrow">THE FLYWHEEL</p>
+<h2>More challenges build a bigger vault, and a bigger vault sells more challenges.</h2>
+</div>
+<div class="wheel">
+<div class="node rise" style="--i:0"><p class="k">1 · CHALLENGES</p><p class="t">Trenchers buy challenges to trade bigger</p></div>
+<div class="arr-h shape-arrow-right" aria-hidden="true"></div>
+<div class="node rise" style="--i:1"><p class="k">2 · FEE PROFIT</p><p class="t">Most fail, fees stay, paid in USDC</p></div>
+<div class="arr-v shape-arrow-up" aria-hidden="true"></div>
+<p class="mid">challenges<br>= fees<br>= yield</p>
+<div class="arr-v shape-arrow-down" aria-hidden="true"></div>
+<div class="node rise" style="--i:3"><p class="k">4 · BIGGER VAULT</p><p class="t">Bigger accounts and public payouts pull in traders</p></div>
+<div class="arr-h shape-arrow-left" aria-hidden="true"></div>
+<div class="node rise" style="--i:2"><p class="k">3 · YIELD + BUYBACKS</p><p class="t">Stakers earn real yield, so more back the vault</p></div>
+</div>
+
+</section>
+<section data-slide id="token" class="accent">
+<div class="head">
+<p class="eyebrow">WHY HOLD THE TOKEN</p>
+<h2>Holding the token means owning the firm.</h2>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:48px">
+<div class="head rise" style="--i:0"><h3>Real yield</h3><p class="lede">Stakers get 50% of fee profit, paid in USDC.</p></div>
+<div class="head rise" style="--i:1"><h3>Buyback &amp; burn</h3><p class="lede">30% of fee profit buys the token and burns it.</p></div>
+<div class="head rise" style="--i:2"><h3>Trader perks</h3><p class="lede">Holders get cheaper challenges and a 90% split.</p></div>
+<div class="head rise" style="--i:3"><h3>A valuation floor</h3><p class="lede">A token that pays real income is worth at least what people pay for that income.</p></div>
+</div>
+<p class="lede" style="font-weight:600">No token has a guaranteed floor. Fee income gives this one an anchor most prop firm tokens don’t have.</p>
+
+</section>
+<section data-slide id="users" class="alt">
+<div class="head">
+<p class="eyebrow">WHO USES IT</p>
+<h2>Four groups, four reasons to show up.</h2>
+</div>
+<div class="cards">
+<div class="card rise" style="--i:0"><p class="k">TRADERS</p><h3>Small wallets</h3><p class="d">Good trenchers with a few hundred dollars who want to trade size without risking it.</p></div>
+<div class="card rise" style="--i:1"><p class="k">PROVEN</p><h3>Live Desk</h3><p class="d">Traders who pass get real money, a public record and followers.</p></div>
+<div class="card rise" style="--i:2"><p class="k">FOLLOWERS</p><h3>Copy traders</h3><p class="d">Fomo-style users who copy proven traders, not anonymous wallets.</p></div>
+<div class="card rise" style="--i:3"><p class="k">THE FIRM</p><h3>Stakers</h3><p class="d">Holders who want USDC yield from fees, not from inflation.</p></div>
+</div>
+<p class="lede">Is it useful? Yes: it gives skilled traders capital they don’t have. In a quiet market, a cheap way to trade bigger is easier to sell than another coin.</p>
+
+</section>
+<section data-slide id="risks" class="alt">
+<div class="head">
+<p class="eyebrow">RISKS</p>
+<h2>What could go wrong, and the plan for each.</h2>
+</div>
+<table class="data" style="font-size:25px">
+<tr class="headrow"><th style="width:34%">Risk</th><th style="width:66%">Plan</th></tr>
+<tr><td>Fake profits on thin coins</td><td>Fills modelled on real pool depth; position size capped to a share of liquidity; liquidity and age floor per coin</td></tr>
+<tr><td>Traders pump their own coins</td><td>Coins created by or bought from linked wallets are banned; unusual wins are reviewed before payout</td></tr>
+<tr><td>A run of winners drains the vault</td><td>Max payout per trader per cycle; account sizes tied to vault size; reserve fund</td></tr>
+<tr><td>Trust (rivals score 2.9/5)</td><td>Rules in the contract, public vault, every payout onchain</td></tr>
+<tr><td>Quiet memecoin market</td><td>Add stock tokens and majors; seasons and competitions keep traders active</td></tr>
+<tr><td>Legal: prop firms face scrutiny</td><td>UK legal advice before launch; block restricted countries; clear terms</td></tr>
+</table>
+
+</section>
+<section data-slide id="roadmap">
+<div class="head">
+<p class="eyebrow">BUILD ROADMAP</p>
+<h2>Live on Solana in two weeks.</h2>
+</div>
+<div class="cards">
+<div class="card rise" style="--i:0"><p class="k">DAYS 1–5</p><h3>Build</h3><p class="d">Practice engine on live Pump pool data, rule checks, payout vault contract, dashboard.</p></div>
+<div class="card rise" style="--i:1"><p class="k">DAYS 6–9</p><h3>Review + test</h3><p class="d">Fast security review, test challenges, abuse checks. Bug bounty from day one.</p></div>
+<div class="card rise" style="--i:2"><p class="k">DAYS 10–12</p><h3>Closed beta</h3><p class="d">Free challenges for invited trenchers. Tune targets and fills.</p></div>
+<div class="card featured rise" style="--i:3"><p class="k">DAYS 13–14</p><h3>Launch</h3><p class="d">Paid challenges, token launch, staking opens, first season.</p></div>
+</div>
+<p class="lede">After launch: the Live Desk with real money, copy trading, stock tokens, and bigger accounts as the vault grows.</p>
+<p class="mono">Speed trade-off: launch with small accounts and payout caps, then raise limits once the vault and rules have run safely.</p>
+
+</section>
+<section data-slide id="moat" class="alt">
+<div class="head">
+<p class="eyebrow">THE MOAT</p>
+<h2>Four advantages that grow with every challenge.</h2>
+</div>
+<div class="cards">
+<div class="card rise" style="--i:0"><p class="k">01</p><h3>Trust on record</h3><p class="d">Every payout is public. A long payout history can’t be copied.</p></div>
+<div class="card rise" style="--i:1"><p class="k">02</p><h3>Vault size</h3><p class="d">The biggest vault sells the biggest accounts. Copycats start small.</p></div>
+<div class="card rise" style="--i:2"><p class="k">03</p><h3>Trader records</h3><p class="d">Months of verified results show who is really good. That data powers the Live Desk.</p></div>
+<div class="card rise" style="--i:3"><p class="k">04</p><h3>Owners who promote</h3><p class="d">Stakers earn from fees, so they bring traders in. Winners post payouts.</p></div>
+</div>
+<p class="mono">Early on the moat is thin. Speed and trust are the defence.</p>
+
+</section>
+<section data-slide id="close" style="justify-content:space-between">
+<p class="eyebrow">IN ONE LINE</p>
+<div class="head">
+<h2 class="rise" style="--i:0">The memecoin prop firm traders can check and holders actually own.</h2>
+<p class="lede rise" style="--i:1">A multi-billion business model, proven onchain demand, rivals nobody trusts yet, and fee income that arrives whether traders win or lose.</p>
+</div>
+<div class="head rise" style="--i:2">
+<h1>Bankroll</h1>
+<p class="mono">Prove it in the trenches. Trade our money.</p>
+</div>
+
+</section>
+</div></div>
+<div class="nav"><span id="counter"></span><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button></div>
+<div class="progress"><div class="f" id="bar"></div></div>
+<script>
+const stage = document.getElementById('stage');
+const slides = Array.from(stage.querySelectorAll(':scope > section'));
+const total = slides.length;
+let cur = 0;
+function fit() {
+  const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  stage.style.transform = 'scale(' + s + ')';
+}
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function show(i) {
+  cur = Math.max(0, Math.min(total - 1, i));
+  slides.forEach((s, k) => s.classList.toggle('active', k === cur));
+  document.getElementById('counter').textContent = pad(cur + 1) + ' / ' + pad(total);
+  document.getElementById('bar').style.width = ((cur + 1) / total * 100) + '%';
+  history.replaceState(null, '', '#' + (cur + 1));
+}
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('prev').onclick = () => show(cur - 1);
+window.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); show(cur + 1); }
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(cur - 1); }
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(total - 1);
+});
+let tx = null;
+window.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+window.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  tx = null;
+});
+let lock = false;
+window.addEventListener('wheel', e => {
+  if (lock || Math.abs(e.deltaY) < 30) return;
+  lock = true; show(cur + (e.deltaY > 0 ? 1 : -1)); setTimeout(() => lock = false, 650);
+}, { passive: true });
+window.addEventListener('resize', fit);
+fit();
+const start = parseInt(location.hash.slice(1), 10);
+show(start >= 1 && start <= total ? start - 1 : 0);
+</script>
+</body>
+</html>
