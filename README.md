@@ -1,6 +1,6 @@
 # Bankroll — pitch deck
 
-Pitch deck for **Bankroll ($BANKROLL)**: a memecoin prop firm on Solana. Traders pay a small fee and pass a two-phase demo challenge (FTMO-style targets and loss limits, 40% best-day rule). Funded accounts stay on demo with capped payouts at an 80% split; after five payouts, traders are reviewed for a real-money Live Desk account. A public USDC payout vault, backed by token stakers, pays every funded trader. "Bankroll" is a working name.
+Pitch deck for **Bankroll ($BANKROLL)**: a memecoin prop firm on Solana. Traders pay a small fee and pass a two-phase demo challenge (+50% then +100% targets, FTMO-style loss limits, 40% best-day rule). Funded accounts stay on demo with capped payouts at an 80% split; after five payouts, traders are reviewed for a real-money Live Desk account. A public USDC payout vault, backed by token stakers, pays every funded trader. "Bankroll" is a working name.
 
 A single-file web deck. Navigate with arrow keys, scroll, swipe, or the on-screen arrows. Add `#14` to the URL to open a specific slide (slide 14 is the revenue scenarios). On a phone it reads best in landscape.
 
